@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TimeUntil",
+            "request": "launch",
+            "mainClass": "TimeUntil"
+        }
+    ]
+}
