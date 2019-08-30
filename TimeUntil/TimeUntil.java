@@ -14,6 +14,7 @@ public class TimeUntil {
 
         System.out.println("Give me a time to find out how long it will be till then:");
 
+        //asking for numbers
         System.out.println("Hours:");
         usrHours = scan.nextInt();
         if (usrHours > 24 || usrHours < 1) {
@@ -76,6 +77,7 @@ public class TimeUntil {
             secUntil = usrSecs - sec;
         }
 
+        //gets string ready
         String tellHour = "";
         String tellMin = "";
         String tellSec = "";
@@ -91,6 +93,7 @@ public class TimeUntil {
             tellSec = (secUntil + " seconds ");
         }
 
+        //displays the message
         if (displayHour == 0 && displayMin == 0 && displaySec == 0) {
             System.out.println("It is that time");
         }
