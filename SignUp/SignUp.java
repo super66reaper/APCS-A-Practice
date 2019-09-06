@@ -10,7 +10,7 @@ public class SignUp {
         System.out.println("Enter Username:");
         username = scan.nextLine();
 
-        if (username.equals("admin person") || username.equals("skater_gurl17")) {
+        if (username.equals("admin person") || username.equals("skater_gurl17") || username.equals("gary") || username.equals("jimbob234")) {
             System.out.println("Username Taken");
             System.exit(0);
         }
@@ -29,6 +29,7 @@ public class SignUp {
 
         String firstLet;
         firstLet = password.substring(0,1);
+        firstLet = firstLet.toLowerCase();
         if (firstLet.equals("a") || firstLet.equals("e") || firstLet.equals("i") || firstLet.equals("o") || firstLet.equals("u")) {
             if (password.contains("#") || password.contains("!") || password.contains("$") || password.contains("&") || password.contains("*")) {
                 if (!password.contains(username)) {
