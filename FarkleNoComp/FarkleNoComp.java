@@ -11,6 +11,8 @@ public class FarkleNoComp {
         int playerOnePoints = 0;
         int playerTwoPoints = 0;
         int playerFirst = 0;
+        int pointsToAdd = 0;
+        int pointDiceNum = 0;
 
         int i = 0;
         int dice1 = 0;
@@ -70,11 +72,13 @@ public class FarkleNoComp {
                 dice6 = rand.nextInt(6) + 1;
             }
             
-            PrintingRolls(dice1, dice2, dice3, dice4, dice5, dice6, dice1Held, dice2Held, dice3Held, dice4Held, dice5Held, dice6Held);
+            printingRolls(dice1, dice2, dice3, dice4, dice5, dice6, dice1Held, dice2Held, dice3Held, dice4Held, dice5Held, dice6Held);
+
+            
 
             //asking player to hold off dice
-            while(usrDiceNum != 0) {
-                System.out.println("\nType the number of the dice to keep it and type 0 to reroll");
+            while(usrDiceNum != 0 && usrDiceNum != 7) {
+                System.out.println("\nType the number of the dice to keep it, type 0 to reroll and type 7 to end turn");
                 usrDiceNum = scan.nextInt();
 
                 if (usrDiceNum == 1 && isPointDice(dice1)) {
@@ -114,6 +118,58 @@ public class FarkleNoComp {
                     System.out.println("This dice is not a point dice and cannot be kept");
                 }
             }
+            //adding points
+            if (usrDiceNum == 7) {
+                if (dice1Held) {
+                    pointDiceNum = dice1;
+                    pointsToAdd += addPoints(pointDiceNum);
+                }
+                if (dice2Held) {
+                    pointDiceNum = dice2;
+                    pointsToAdd += addPoints(pointDiceNum);
+                }
+                if (dice3Held) {
+                    pointDiceNum = dice3;
+                    pointsToAdd += addPoints(pointDiceNum);
+                }
+                if (dice4Held) {
+                    pointDiceNum = dice4;
+                    pointsToAdd += addPoints(pointDiceNum);
+                }
+                if (dice5Held) {
+                    pointDiceNum = dice5;
+                    pointsToAdd += addPoints(pointDiceNum);
+                }
+                if (dice6Held) {
+                    pointDiceNum = dice6;
+                    pointsToAdd += addPoints(pointDiceNum);
+                }
+
+                if (playerFirst == 1) {
+                    playerOnePoints += pointsToAdd;
+                    playerFirst = 2;
+                    System.out.println("\nPlayer Two is up\n");
+                }else if(playerFirst == 2){
+                    playerTwoPoints += pointsToAdd;
+                    playerFirst = 1;
+                    System.out.println("\nPlayer One is up\n");
+                    
+                }
+                dice1Held = false;
+                dice2Held = false;
+                dice3Held = false;
+                dice4Held = false;
+                dice5Held = false;
+                dice6Held = false;
+                pointsToAdd = 0;
+                System.out.println("Player One: " + playerOnePoints);
+                System.out.println("Player Two: " + playerTwoPoints);
+            }
+        }
+        if(playerOnePoints > playerTwoPoints) {
+            System.out.println("Player One Wins!");
+        }else {
+            System.out.println("Player Two Wins!");
         }
     }
 
@@ -135,7 +191,7 @@ public class FarkleNoComp {
         }
     }
 
-    public static void PrintingRolls(int dice1, int dice2, int dice3, int dice4, int dice5, int dice6, boolean dice1Held, boolean dice2Held, boolean dice3Held, boolean dice4Held, boolean dice5Held, boolean dice6Held) {
+    public static void printingRolls(int dice1, int dice2, int dice3, int dice4, int dice5, int dice6, boolean dice1Held, boolean dice2Held, boolean dice3Held, boolean dice4Held, boolean dice5Held, boolean dice6Held) {
         if (dice1Held) {
             System.out.println("(Held Off)Die1: " + dice1);
         }else {
@@ -166,5 +222,19 @@ public class FarkleNoComp {
         } else {
             System.out.println("Die6: " + dice6);
         }
+    }
+
+    public static int addPoints(int pointDiceNum) {
+        if (pointDiceNum == 1) {
+            return 100;
+        }else if(pointDiceNum == 5) {
+            return 500;
+        }else {
+            return 0;
+        }
+    }
+
+    public static boolean isFarkle() {
+        return false;
     }
 }
