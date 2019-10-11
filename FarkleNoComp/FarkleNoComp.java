@@ -13,6 +13,12 @@ public class FarkleNoComp {
         int playerFirst = 0;
         int pointsToAdd = 0;
         int usrDiceNum = 1;
+        int diceWith1 = 0;
+        int diceWith2 = 0;
+        int diceWith3 = 0;
+        int diceWith4 = 0;
+        int diceWith5 = 0;
+        int diceWith6 = 0;
 
         int dice1 = 0;
         int dice2 = 0;
@@ -31,6 +37,12 @@ public class FarkleNoComp {
         boolean nextTurn = false;
         boolean finalTurn = false;
         boolean gameFinished = false;
+        boolean dice1Points = false;
+        boolean dice2Points = false;
+        boolean dice3Points = false;
+        boolean dice4Points = false;
+        boolean dice5Points = false;
+        boolean dice6Points = false;
 
         //Who goes first
         System.out.println("Lets roll to see who should go first");
@@ -82,8 +94,61 @@ public class FarkleNoComp {
             
             printingRolls(dice1, dice2, dice3, dice4, dice5, dice6, dice1Held, dice2Held, dice3Held, dice4Held, dice5Held, dice6Held);
 
+            //Sets if dice have value
+            if(isPointDice(dice1)) {
+                dice1Points = true;
+            }else {
+                dice1Points = false;
+            }
+            if(isPointDice(dice2)) {
+                dice2Points = true;
+            }else {
+                dice2Points = false;
+            }
+            if(isPointDice(dice3)) {
+                dice3Points = true;
+            }else {
+                dice3Points = false;
+            }
+            if(isPointDice(dice4)) {
+                dice4Points = true;
+            }else {
+                dice4Points = false;
+            }
+            if(isPointDice(dice5)) {
+                dice5Points = true;
+            }else {
+                dice5Points = false;
+            }
+            if(isPointDice(dice6)) {
+                dice6Points = true;
+            }else {
+                dice6Points = false;
+            }
+
+            //Checks three of a kind
+            diceWith1 = threeOfKind(1, dice1, dice2, dice3, dice4, dice5, dice6);
+            diceWith2 = threeOfKind(2, dice1, dice2, dice3, dice4, dice5, dice6);
+            diceWith3 = threeOfKind(3, dice1, dice2, dice3, dice4, dice5, dice6);
+            diceWith4 = threeOfKind(4, dice1, dice2, dice3, dice4, dice5, dice6);
+            diceWith5 = threeOfKind(5, dice1, dice2, dice3, dice4, dice5, dice6);
+            diceWith6 = threeOfKind(6, dice1, dice2, dice3, dice4, dice5, dice6);
+
+            if(diceWith1 >= 3) {
+            }
+            if(diceWith2 >= 3) {
+            }
+            if(diceWith3 >= 3) {
+            }
+            if(diceWith4 >= 3) {
+            }
+            if(diceWith5 >= 3) {
+            }
+            if(diceWit6 >= 3) {
+            }
+
             //Checks if Farkle
-            if(!isFarkle(dice1, dice2, dice3, dice4, dice5, dice6, dice1Held, dice2Held, dice3Held, dice4Held, dice5Held, dice6Held) && !isHotDice(dice1, dice2, dice3, dice4, dice5, dice6, dice1Held, dice2Held, dice3Held, dice4Held, dice5Held, dice6Held)) {
+            if(!isFarkle (dice1Points, dice2Points, dice3Points, dice4Points, dice5Points, dice6Points)) {
                 //asking player to hold off dice
                 while(usrDiceNum != 0 && usrDiceNum != 7) {
                     System.out.println("\nType the number of the dice to keep it, type 0 to reroll and type 7 to end turn");
@@ -131,7 +196,7 @@ public class FarkleNoComp {
                         System.out.println("You need to at least set aside 1 dice");
                     }
                 }
-            }else if(isHotDice(dice1, dice2, dice3, dice4, dice5, dice6, dice1Held, dice2Held, dice3Held, dice4Held, dice5Held, dice6Held)){
+            }else if(isHotDice(dice1Points, dice2Points, dice3Points, dice4Points, dice5Points, dice6Points, dice1Held, dice2Held, dice3Held, dice4Held, dice5Held, dice6Held)){
                 System.out.println("\nHot Dice!\n");
                 dice1Held = false;
                 dice2Held = false;
@@ -213,14 +278,36 @@ public class FarkleNoComp {
             return false;
         }
     }
-    
 
-    public static boolean isThreeOfKind(int dice1, int dice2, int dice3, int dice4, int dice5, int dice6) {
-        if (dice1 == dice2) {
-            return true;
-        }else {
-            return false;
+    public static int threeOfKind(int numToCheck, int dice1, int dice2, int dice3, int dice4, int dice5, int dice6) {
+        int result = 0;
+        result = singleThreeOfKind(numToCheck, dice1, dice2, dice3, dice4, dice5, dice6);
+        return result;
+    }
+
+    public static int singleThreeOfKind(int diceNum, int dice1, int dice2, int dice3, int dice4, int dice5, int dice6) {
+        int result = 0;
+        for(int times = 0; times < 6; times++) {
+            if(dice1 == diceNum) {
+                result += 1;
+            }
+            if(dice2 == diceNum) {
+                result += 1;
+            }
+            if(dice3 == diceNum) {
+                result += 1;
+            }
+            if(dice4 == diceNum) {
+                result += 1;
+            }
+            if(dice5 == diceNum) {
+                result += 1;
+            }
+            if(dice6 == diceNum) {
+                result += 1;
+            }
         }
+        return result;
     }
 
     public static void printingRolls(int dice1, int dice2, int dice3, int dice4, int dice5, int dice6, boolean dice1Held, boolean dice2Held, boolean dice3Held, boolean dice4Held, boolean dice5Held, boolean dice6Held) {
@@ -266,42 +353,42 @@ public class FarkleNoComp {
         }
     }
 
-    public static boolean isFarkle(int dice1, int dice2, int dice3, int dice4, int dice5, int dice6, boolean dice1Held, boolean dice2Held, boolean dice3Held, boolean dice4Held, boolean dice5Held, boolean dice6Held) {
-        if ((isPointDice(dice1) && !dice1Held) || (isPointDice(dice2) && !dice2Held) || (isPointDice(dice3) && !dice3Held) || (isPointDice(dice4) && !dice4Held) || (isPointDice(dice5) && !dice5Held) || (isPointDice(dice6) && !dice6Held)){
+    public static boolean isFarkle(boolean dice1, boolean dice2, boolean dice3, boolean dice4, boolean dice5, boolean dice6) {
+        if (dice1 || dice2 || dice3 || dice4 || dice5 || dice6){
             return false;
         }else {
             return true;
         }
     }
 
-    public static boolean isHotDice(int dice1, int dice2, int dice3, int dice4, int dice5, int dice6, boolean dice1Held, boolean dice2Held, boolean dice3Held, boolean dice4Held, boolean dice5Held, boolean dice6Held) {
+    public static boolean isHotDice(boolean dice1, boolean dice2, boolean dice3, boolean dice4, boolean dice5, boolean dice6, boolean dice1Held, boolean dice2Held, boolean dice3Held, boolean dice4Held, boolean dice5Held, boolean dice6Held) {
         if(!dice1Held) {
-            if (!isPointDice(dice1)) {
+            if (dice1) {
                 return false;
             }
         }
         if(!dice2Held) {
-            if (!isPointDice(dice2)) {
+            if (dice2) {
                 return false;
             }
         }
         if(!dice3Held) {
-            if (!isPointDice(dice3)) {
+            if (dice3) {
                 return false;
             }
         }
         if(!dice4Held) {
-            if (!isPointDice(dice4)) {
+            if (dice4) {
                 return false;
             }
         }
         if(!dice5Held) {
-            if (!isPointDice(dice5)) {
+            if (dice5) {
                 return false;
             }
         }
         if(!dice6Held) {
-            if (!isPointDice(dice6)) {
+            if (dice6) {
                 return false;
             }
         }
